@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/Header";
-import { Smartphone, SimCard, Settings2, Plus, QrCode } from "lucide-react";
+import { Smartphone, SimCard as SimCardIcon, Settings2, Plus, QrCode } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 export default function DeviceSim() {
@@ -31,7 +31,7 @@ export default function DeviceSim() {
           <div className="flex justify-between items-start mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
-                <SimCard className="w-5 h-5" />
+                <SimCardIcon className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="font-bold">物理 SIM 卡</h3>
