@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/Header";
-import { Smartphone, SimCard as SimCardIcon, Settings2, Plus, QrCode } from "lucide-react";
+import { Smartphone, CreditCard as SimCardIcon, Settings2, Plus, QrCode } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 export default function DeviceSim() {
