@@ -14,6 +14,10 @@ import Plans from "@/pages/plans";
 import Support from "@/pages/support";
 import Profile from "@/pages/profile";
 import Signature from "@/pages/signature";
+import StoreLocator from "@/pages/store-locator";
+import Chatbot from "@/pages/chatbot";
+import Notifications from "@/pages/notifications";
+import ProfileEdit from "@/pages/profile-edit";
 import { BottomNav } from "@/components/layout/BottomNav";
 
 function Router() {
@@ -30,6 +34,10 @@ function Router() {
           <Route path="/support" component={Support} />
           <Route path="/profile" component={Profile} />
           <Route path="/signature" component={Signature} />
+          <Route path="/store-locator" component={StoreLocator} />
+          <Route path="/chatbot" component={Chatbot} />
+          <Route path="/notifications" component={Notifications} />
+          <Route path="/profile/edit" component={ProfileEdit} />
           <Route component={NotFound} />
         </Switch>
       </div>
@@ -42,7 +50,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-neutral-900 flex items-center justify-center p-4 sm:p-0 transition-all duration-300">
+        <div className="min-h-[100dvh] bg-neutral-900 flex items-center justify-center sm:p-4">
           <Router />
         </div>
         <Toaster />

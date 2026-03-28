@@ -24,7 +24,6 @@ export default function Signature() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     
-    // Get correct coordinates whether mouse or touch
     const rect = canvas.getBoundingClientRect();
     let clientX, clientY;
     
@@ -67,9 +66,7 @@ export default function Signature() {
     ctx.stroke();
   };
 
-  const stopDrawing = () => {
-    setIsDrawing(false);
-  };
+  const stopDrawing = () => setIsDrawing(false);
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
@@ -82,7 +79,6 @@ export default function Signature() {
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      // Create a fake URL for the uploaded file just for preview
       setUploadedFile(URL.createObjectURL(e.target.files[0]));
     }
   };
@@ -101,10 +97,8 @@ export default function Signature() {
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 text-green-500 animate-in zoom-in duration-500">
           <CheckCircle2 className="w-10 h-10" />
         </div>
-        <h1 className="text-2xl font-bold mb-2">合约签署成功</h1>
-        <p className="text-muted-foreground mb-8">
-          您的套餐办理申请已提交并生成电子合约。我们将尽快为您开通服务。
-        </p>
+        <h1 className="text-2xl font-bold mb-2">{t.signSuccessTitle}</h1>
+        <p className="text-muted-foreground mb-8">{t.signSuccessDesc}</p>
         <Button 
           className="w-full h-14 rounded-2xl text-base font-semibold max-w-xs"
           onClick={() => setLocation("/dashboard")}
@@ -122,7 +116,7 @@ export default function Signature() {
       <div className="px-4 mt-2 flex-1 flex flex-col">
         <div className="bg-blue-50 text-blue-800 p-4 rounded-2xl flex items-start gap-3 mb-6 text-sm">
           <FileText className="w-5 h-5 shrink-0 mt-0.5" />
-          <p>请按要求上传身份证件并进行电子签名，以完成实名认证和合约签署。</p>
+          <p>{t.signHint}</p>
         </div>
 
         <h3 className="font-bold mb-3">{t.uploadID}</h3>
@@ -137,7 +131,7 @@ export default function Signature() {
               <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center">
                 <Upload className="w-6 h-6" />
               </div>
-              <span className="font-semibold text-sm">点击拍照或上传图片</span>
+              <span className="font-semibold text-sm">{t.photoUploadHint}</span>
             </div>
           )}
         </label>
@@ -148,7 +142,6 @@ export default function Signature() {
             <button 
               onClick={clearCanvas}
               className="p-2 bg-muted/80 backdrop-blur rounded-full text-muted-foreground hover:text-foreground transition-colors"
-              title={t.clearSign}
             >
               <RotateCcw className="w-4 h-4" />
             </button>
