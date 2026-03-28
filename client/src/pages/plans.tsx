@@ -1,7 +1,9 @@
 import { Header } from "@/components/layout/Header";
-import { Search, Wifi, Phone, MessageSquare, ArrowRight, ShieldCheck } from "lucide-react";
+import { Search, Wifi, Phone, MessageSquare, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useLocation } from "wouter";
 
 const PLANS = [
   {
@@ -40,6 +42,43 @@ const PLANS = [
 ];
 
 export default function Plans() {
+  const [selectedCategory, setSelectedCategory] = useState("全部");
+  const [purchasingPlan, setPurchasingPlan] = useState<number | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [_, setLocation] = useLocation();
+
+  const handlePurchase = (planId: number) => {
+    setPurchasingPlan(planId);
+    setTimeout(() => {
+      setPurchasingPlan(null);
+      setShowSuccess(true);
+    }, 1500);
+  };
+
+  if (showSuccess) {
+    return (
+      <div className="min-h-[100dvh] bg-background flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 text-green-500 animate-in zoom-in duration-500">
+          <CheckCircle2 className="w-10 h-10" />
+        </div>
+        <h1 className="text-2xl font-bold mb-2">订购成功！</h1>
+        <p className="text-muted-foreground mb-8">
+          套餐已生效，您现在可以开始使用新套餐的服务了。
+        </p>
+        
+        <Button 
+          className="w-full h-14 rounded-2xl text-base font-semibold max-w-xs"
+          onClick={() => {
+            setShowSuccess(false);
+            setLocation("/dashboard");
+          }}
+        >
+          返回首页
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-[100dvh] bg-background pb-28">
       <Header title="探索套餐" />
@@ -54,10 +93,11 @@ export default function Plans() {
         </div>
 
         <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2 mb-4 -mx-4 px-4">
-          {["全部", "PixX 系列", "Awawal", "国际漫游", "纯流量"].map((cat, i) => (
+          {["全部", "PixX 系列", "Awawal", "国际漫游", "纯流量"].map((cat) => (
             <button 
               key={cat}
-              className={`whitespace-nowrap px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${i === 0 ? 'bg-foreground text-background' : 'bg-white border border-border text-foreground'}`}
+              onClick={() => setSelectedCategory(cat)}
+              className={`whitespace-nowrap px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${selectedCategory === cat ? 'bg-foreground text-background' : 'bg-white border border-border text-foreground hover:bg-muted'}`}
             >
               {cat}
             </button>
@@ -105,11 +145,21 @@ export default function Plans() {
               </div>
 
               <div className="flex gap-3">
-                <Button variant="outline" className="flex-1 h-12 rounded-xl border-border font-semibold">
+                <Button 
+                  variant="outline" 
+                  className="flex-1 h-12 rounded-xl border-border font-semibold hover:bg-muted"
+                  onClick={() => alert(`显示 ${plan.name} 的详细说明及条款`)}
+                >
                   查看详情
                 </Button>
-                <Button className="flex-1 h-12 rounded-xl font-semibold shadow-md shadow-primary/20">
-                  立即订购 <ArrowRight className="w-4 h-4 ml-1" />
+                <Button 
+                  className="flex-1 h-12 rounded-xl font-semibold shadow-md shadow-primary/20"
+                  onClick={() => handlePurchase(plan.id)}
+                  disabled={purchasingPlan === plan.id}
+                >
+                  {purchasingPlan === plan.id ? "处理中..." : (
+                    <>立即订购 <ArrowRight className="w-4 h-4 ml-1" /></>
+                  )}
                 </Button>
               </div>
             </div>
@@ -117,13 +167,13 @@ export default function Plans() {
         </div>
         
         {/* Roaming Promo */}
-        <div className="mt-8 bg-secondary text-white rounded-3xl p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/30 rounded-full blur-2xl translate-x-1/3 -translate-y-1/3"></div>
+        <div className="mt-8 bg-secondary text-white rounded-3xl p-6 relative overflow-hidden group cursor-pointer" onClick={() => alert("为您跳转至国际漫游专区")}>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/30 rounded-full blur-2xl translate-x-1/3 -translate-y-1/3 group-hover:scale-150 transition-transform duration-700"></div>
           <div className="relative z-10">
             <ShieldCheck className="w-8 h-8 text-primary mb-3" />
             <h3 className="text-xl font-bold mb-2">需要出国旅行？</h3>
             <p className="text-sm text-white/80 mb-4">开通国际漫游套餐，在全球超过 150 个国家保持连接。</p>
-            <button className="bg-white text-secondary font-bold text-sm px-5 py-2.5 rounded-xl">
+            <button className="bg-white text-secondary font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-primary hover:text-white transition-colors">
               查看漫游套餐
             </button>
           </div>
