@@ -1,9 +1,10 @@
 import { Header } from "@/components/layout/Header";
-import { Search, Wifi, Phone, MessageSquare, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Search, Wifi, Phone, MessageSquare, ArrowRight, ShieldCheck } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useLocation } from "wouter";
+import { useI18n } from "@/lib/i18n";
 
 const PLANS = [
   {
@@ -43,52 +44,19 @@ const PLANS = [
 
 export default function Plans() {
   const [selectedCategory, setSelectedCategory] = useState("全部");
-  const [purchasingPlan, setPurchasingPlan] = useState<number | null>(null);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [_, setLocation] = useLocation();
-
-  const handlePurchase = (planId: number) => {
-    setPurchasingPlan(planId);
-    setTimeout(() => {
-      setPurchasingPlan(null);
-      setShowSuccess(true);
-    }, 1500);
-  };
-
-  if (showSuccess) {
-    return (
-      <div className="min-h-[100dvh] bg-background flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 text-green-500 animate-in zoom-in duration-500">
-          <CheckCircle2 className="w-10 h-10" />
-        </div>
-        <h1 className="text-2xl font-bold mb-2">订购成功！</h1>
-        <p className="text-muted-foreground mb-8">
-          套餐已生效，您现在可以开始使用新套餐的服务了。
-        </p>
-        
-        <Button 
-          className="w-full h-14 rounded-2xl text-base font-semibold max-w-xs"
-          onClick={() => {
-            setShowSuccess(false);
-            setLocation("/dashboard");
-          }}
-        >
-          返回首页
-        </Button>
-      </div>
-    );
-  }
+  const { t } = useI18n();
 
   return (
     <div className="min-h-[100dvh] bg-background pb-28">
-      <Header title="探索套餐" />
+      <Header title={t.explorePlans} />
       
       <div className="px-4 mt-2">
         <div className="relative mb-6">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Search className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input 
             placeholder="搜索套餐名称..." 
-            className="pl-12 h-12 bg-white rounded-2xl border-border"
+            className="ltr:pl-12 rtl:pr-12 h-12 bg-white rounded-2xl border-border"
           />
         </div>
 
@@ -108,7 +76,7 @@ export default function Plans() {
           {PLANS.map((plan) => (
             <div key={plan.id} className="bg-white rounded-[2rem] p-5 shadow-sm border border-border relative overflow-hidden">
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl z-10">
+                <div className="absolute top-0 ltr:right-0 rtl:left-0 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 ltr:rounded-bl-xl rtl:rounded-br-xl z-10">
                   最受欢迎
                 </div>
               )}
@@ -154,12 +122,9 @@ export default function Plans() {
                 </Button>
                 <Button 
                   className="flex-1 h-12 rounded-xl font-semibold shadow-md shadow-primary/20"
-                  onClick={() => handlePurchase(plan.id)}
-                  disabled={purchasingPlan === plan.id}
+                  onClick={() => setLocation("/signature")}
                 >
-                  {purchasingPlan === plan.id ? "处理中..." : (
-                    <>立即订购 <ArrowRight className="w-4 h-4 ml-1" /></>
-                  )}
+                  {t.buyPlan} <ArrowRight className="w-4 h-4 ltr:ml-1 rtl:mr-1 rtl:rotate-180" />
                 </Button>
               </div>
             </div>

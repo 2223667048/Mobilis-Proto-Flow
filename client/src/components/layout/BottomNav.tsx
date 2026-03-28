@@ -1,19 +1,21 @@
 import { Link, useLocation } from "wouter";
 import { Home, CreditCard, LayoutGrid, Headset, User } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export function BottomNav() {
   const [location] = useLocation();
+  const { t } = useI18n();
 
   const navItems = [
-    { icon: Home, label: "首页", path: "/dashboard" },
-    { icon: CreditCard, label: "充值", path: "/recharge" },
-    { icon: LayoutGrid, label: "套餐", path: "/plans" },
-    { icon: Headset, label: "客服", path: "/support" },
-    { icon: User, label: "我的", path: "/profile" },
+    { icon: Home, label: t.home, path: "/dashboard" },
+    { icon: CreditCard, label: t.recharge, path: "/recharge" },
+    { icon: LayoutGrid, label: t.plans, path: "/plans" },
+    { icon: Headset, label: t.support, path: "/support" },
+    { icon: User, label: t.profile, path: "/profile" },
   ];
 
   // Hide bottom nav on specific pages
-  if (['/', '/login', '/otp'].includes(location)) {
+  if (['/', '/login', '/otp', '/signature'].includes(location)) {
     return null;
   }
 

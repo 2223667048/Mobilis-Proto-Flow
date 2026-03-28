@@ -13,6 +13,7 @@ import Recharge from "@/pages/recharge";
 import Plans from "@/pages/plans";
 import Support from "@/pages/support";
 import Profile from "@/pages/profile";
+import Signature from "@/pages/signature";
 import { BottomNav } from "@/components/layout/BottomNav";
 
 function Router() {
@@ -28,6 +29,7 @@ function Router() {
           <Route path="/plans" component={Plans} />
           <Route path="/support" component={Support} />
           <Route path="/profile" component={Profile} />
+          <Route path="/signature" component={Signature} />
           <Route component={NotFound} />
         </Switch>
       </div>
@@ -40,7 +42,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-neutral-900 flex items-center justify-center p-4 sm:p-0">
+        <div className="min-h-screen bg-neutral-900 flex items-center justify-center p-4 sm:p-0 transition-all duration-300">
           <Router />
         </div>
         <Toaster />
