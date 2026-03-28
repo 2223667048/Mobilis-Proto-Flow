@@ -13,17 +13,17 @@ export default function Profile() {
       title: t.accManagement,
       items: [
         { icon: User, label: t.personalInfo, path: "/profile/edit" },
-        { icon: Smartphone, label: t.deviceSim, path: "#", value: t.esimActive },
-        { icon: Activity, label: t.billsInvoices, path: "#" }
+        { icon: Smartphone, label: t.deviceSim, path: "/device-sim", value: t.esimActive },
+        { icon: Activity, label: t.billsInvoices, path: "/bills" }
       ]
     },
     {
       title: t.settings,
       items: [
-        { icon: Shield, label: t.accSecurity, path: "#" },
-        { icon: Bell, label: t.notifSettings, path: "#" },
-        { icon: CreditCard, label: t.payMethods, path: "#" },
-        { icon: Settings, label: t.generalSettings, path: "#" }
+        { icon: Shield, label: t.accSecurity, path: "/settings" },
+        { icon: Bell, label: t.notifSettings, path: "/settings" },
+        { icon: CreditCard, label: t.payMethods, path: "/recharge" },
+        { icon: Settings, label: t.generalSettings, path: "/settings" }
       ]
     }
   ];
@@ -52,7 +52,10 @@ export default function Profile() {
           </button>
         </div>
 
-        <div className="bg-gradient-dark rounded-2xl p-5 mb-8 text-white relative overflow-hidden cursor-pointer group">
+        <div 
+          className="bg-gradient-dark rounded-2xl p-5 mb-8 text-white relative overflow-hidden cursor-pointer group"
+          onClick={() => setLocation("/points-mall")}
+        >
           <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 group-hover:bg-white/10 transition-colors"></div>
           <div className="flex justify-between items-center relative z-10">
             <div>

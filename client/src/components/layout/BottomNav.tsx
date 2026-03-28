@@ -17,7 +17,9 @@ export function BottomNav() {
   // Hide bottom nav on specific pages
   const hideNavRoutes = [
     '/', '/login', '/otp', '/signature', '/store-locator', 
-    '/chatbot', '/notifications', '/profile/edit'
+    '/chatbot', '/notifications', '/profile/edit',
+    '/device-sim', '/bills', '/points-mall', '/settings',
+    '/puk-code', '/transfer-balance', '/data-addons'
   ];
   
   if (hideNavRoutes.includes(location)) {

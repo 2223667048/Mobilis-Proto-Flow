@@ -18,6 +18,18 @@ import StoreLocator from "@/pages/store-locator";
 import Chatbot from "@/pages/chatbot";
 import Notifications from "@/pages/notifications";
 import ProfileEdit from "@/pages/profile-edit";
+
+// 新增的二级页面组件
+import DeviceSim from "@/pages/device-sim";
+import Bills from "@/pages/bills";
+import PointsMall from "@/pages/points-mall";
+import Settings from "@/pages/settings";
+
+// 补充的新交互页面
+import PukCode from "@/pages/puk-code";
+import TransferBalance from "@/pages/transfer-balance";
+import DataAddons from "@/pages/data-addons";
+
 import { BottomNav } from "@/components/layout/BottomNav";
 
 function Router() {
@@ -33,11 +45,22 @@ function Router() {
           <Route path="/plans" component={Plans} />
           <Route path="/support" component={Support} />
           <Route path="/profile" component={Profile} />
+          
           <Route path="/signature" component={Signature} />
           <Route path="/store-locator" component={StoreLocator} />
           <Route path="/chatbot" component={Chatbot} />
           <Route path="/notifications" component={Notifications} />
           <Route path="/profile/edit" component={ProfileEdit} />
+          
+          <Route path="/device-sim" component={DeviceSim} />
+          <Route path="/bills" component={Bills} />
+          <Route path="/points-mall" component={PointsMall} />
+          <Route path="/settings" component={Settings} />
+          
+          <Route path="/puk-code" component={PukCode} />
+          <Route path="/transfer-balance" component={TransferBalance} />
+          <Route path="/data-addons" component={DataAddons} />
+          
           <Route component={NotFound} />
         </Switch>
       </div>
